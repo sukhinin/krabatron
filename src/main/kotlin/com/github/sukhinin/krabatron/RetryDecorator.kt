@@ -1,3 +1,5 @@
+package com.github.sukhinin.krabatron
+
 import java.util.*
 
 class RetryDecorator<T>(

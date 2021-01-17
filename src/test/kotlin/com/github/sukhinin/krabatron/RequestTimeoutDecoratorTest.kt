@@ -1,9 +1,10 @@
+package com.github.sukhinin.krabatron
+
 import com.nhaarman.mockitokotlin2.*
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
-import java.lang.RuntimeException
 import java.time.Duration
 
 internal class RequestTimeoutDecoratorTest : ShouldSpec({

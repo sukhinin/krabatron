@@ -1,3 +1,5 @@
+package com.github.sukhinin.krabatron
+
 import com.github.sukhinin.krabatron.proxy.Proxy
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine

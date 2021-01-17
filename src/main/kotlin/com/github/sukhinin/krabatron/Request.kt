@@ -1,3 +1,5 @@
+package com.github.sukhinin.krabatron
+
 import com.github.sukhinin.krabatron.proxy.Proxy
 import java.time.Duration
 import java.util.concurrent.atomic.AtomicInteger

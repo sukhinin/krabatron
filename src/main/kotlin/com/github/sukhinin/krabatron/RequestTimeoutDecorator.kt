@@ -1,3 +1,5 @@
+package com.github.sukhinin.krabatron
+
 import java.time.Duration
 
 class RequestTimeoutDecorator<T>(
@@ -6,7 +8,7 @@ class RequestTimeoutDecorator<T>(
 ) : RequestExecutor<T> {
 
     override suspend fun get(request: Request): T {
-        return when(request.timeout) {
+        return when (request.timeout) {
             null -> delegate.get(request.copy(timeout = this.timeout))
             else -> delegate.get(request)
         }

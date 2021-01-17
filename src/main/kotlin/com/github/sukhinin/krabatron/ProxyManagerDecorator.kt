@@ -1,3 +1,5 @@
+package com.github.sukhinin.krabatron
+
 import com.github.sukhinin.krabatron.proxy.ProxyHealth
 import com.github.sukhinin.krabatron.proxy.ProxyManager
 

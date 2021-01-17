@@ -1,3 +1,5 @@
+package com.github.sukhinin.krabatron
+
 import io.javalin.Javalin
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.ShouldSpec

@@ -1,8 +1,9 @@
+package com.github.sukhinin.krabatron
+
 import com.nhaarman.mockitokotlin2.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import java.lang.RuntimeException
 
 internal class RetryDecoratorTest : ShouldSpec({
 

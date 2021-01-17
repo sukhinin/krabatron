@@ -1,3 +1,5 @@
+package com.github.sukhinin.krabatron
+
 import com.github.sukhinin.krabatron.proxy.Proxy
 import com.github.sukhinin.krabatron.proxy.ProxyManager
 import com.nhaarman.mockitokotlin2.*
@@ -5,7 +7,6 @@ import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
-import java.lang.RuntimeException
 
 internal class ProxyManagerDecoratorTest : ShouldSpec({
 
