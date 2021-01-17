@@ -1,0 +1,1 @@
+class TooManyErrorsException(message: String) : Exception(message)
