@@ -5,6 +5,8 @@ import io.kotest.matchers.shouldBe
 import org.asynchttpclient.handler.MaxRedirectException
 import java.io.IOException
 import java.net.ConnectException
+import java.time.Duration
+import java.util.concurrent.TimeoutException
 
 internal class KrabatronTest : ShouldSpec({
 
@@ -12,6 +14,7 @@ internal class KrabatronTest : ShouldSpec({
     afterSpec { javalin.stop() }
 
     javalin.get("/200") { ctx -> ctx.result("200 ok") }
+    javalin.get("/200-slow") { ctx -> Thread.sleep(500); ctx.result("200 ok") }
     javalin.get("/301") { ctx -> ctx.redirect("/200") }
     javalin.get("/301-loop") { ctx -> ctx.redirect("/301-loop") }
     javalin.get("/500") { ctx -> ctx.status(500) }
@@ -46,5 +49,11 @@ internal class KrabatronTest : ShouldSpec({
         val krabatron = Krabatron()
         val request = Request("http://127.0.0.1:1/")
         shouldThrow<ConnectException> { krabatron.get(request) }
+    }
+
+    should("throw on request timeout") {
+        val krabatron = Krabatron()
+        val request = Request("http://localhost:${javalin.port()}/200-slow", timeout = Duration.ofMillis(1))
+        shouldThrow<TimeoutException> { krabatron.get(request) }
     }
 })

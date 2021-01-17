@@ -53,6 +53,10 @@ class Krabatron(client: AsyncHttpClient? = null) : RequestExecutor<ByteArray>, A
             val proxyServer = getProxyServer(request.proxy)
             boundRequest.setProxyServer(proxyServer)
         }
+        if (request.timeout != null) {
+            val requestTimeoutMillis = request.timeout.toMillis()
+            boundRequest.setRequestTimeout(requestTimeoutMillis.toInt())
+        }
         return boundRequest
     }
 
