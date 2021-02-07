@@ -1,5 +1,5 @@
 plugins {
-    id 'fr.brouillard.oss.gradle.jgitver' version '0.6.1'
+    id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.4.10'
 }
 
@@ -7,8 +7,9 @@ group 'com.github.sukhinin'
 description 'Async HTTP client for bulk downloads'
 
 repositories {
-    jcenter()
+    maven { url "https://jitpack.io" }
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -39,7 +40,10 @@ test {
     useJUnitPlatform()
 }
 
-jgitver {
-    useDirty true
-    useGitCommitID true
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
