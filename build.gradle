@@ -1,5 +1,6 @@
 plugins {
     id 'maven-publish'
+    id 'fr.brouillard.oss.gradle.jgitver' version '0.6.1'
     id 'org.jetbrains.kotlin.jvm' version '1.4.10'
 }
 
@@ -7,9 +8,10 @@ group 'com.github.sukhinin'
 description 'Async HTTP client for bulk downloads'
 
 repositories {
-    maven { url "https://jitpack.io" }
     mavenCentral()
-    jcenter()
+    maven {
+        url 'https://maven.pkg.github.com/sukhinin'
+    }
 }
 
 dependencies {
@@ -40,10 +42,24 @@ test {
     useJUnitPlatform()
 }
 
+jgitver {
+    strategy 'MAVEN'
+}
+
 publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/sukhinin/krabatron")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
     publications {
-        mavenJava(MavenPublication) {
-            from components.java
+        gpr(MavenPublication) {
+            from(components.java)
         }
     }
 }
