@@ -9,9 +9,7 @@ description 'Async HTTP client for bulk downloads'
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://jitpack.io'
-    }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -32,6 +30,7 @@ compileKotlin {
         jvmTarget = '1.8'
     }
 }
+
 compileTestKotlin {
     kotlinOptions {
         jvmTarget = '1.8'
@@ -44,4 +43,12 @@ test {
 
 jgitver {
     strategy 'MAVEN'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
 }
