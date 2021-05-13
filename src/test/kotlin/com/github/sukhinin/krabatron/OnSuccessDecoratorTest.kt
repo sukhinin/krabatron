@@ -13,15 +13,15 @@ internal class OnSuccessDecoratorTest : ShouldSpec({
             onBlocking { get(any()) } doReturn response
         }
 
-        val callback = mock<(String) -> Unit> {
-            onBlocking { invoke(any()) } doReturn Unit
+        val callback = mock<(Request, String) -> Unit> {
+            onBlocking { invoke(any(), any()) } doReturn Unit
         }
 
         val executor = mock.onSuccess(callback)
         val request = Request("http://127.0.0.1:80")
         executor.get(request) shouldBe response
 
-        verify(callback).invoke(any())
+        verify(callback).invoke(any(), any())
         verifyNoMoreInteractions(callback)
     }
 
@@ -31,8 +31,8 @@ internal class OnSuccessDecoratorTest : ShouldSpec({
             onBlocking { get(any()) } doThrow RuntimeException(message)
         }
 
-        val callback = mock<(String) -> Unit> {
-            onBlocking { invoke(any()) } doReturn Unit
+        val callback = mock<(Request, String) -> Unit> {
+            onBlocking { invoke(any(), any()) } doReturn Unit
         }
 
         val executor = mock.onSuccess(callback)

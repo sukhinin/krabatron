@@ -13,8 +13,8 @@ internal class OnFailureDecoratorTest : ShouldSpec({
             onBlocking { get(any()) } doReturn response
         }
 
-        val callback = mock<(Throwable) -> Unit> {
-            onBlocking { invoke(any()) } doReturn Unit
+        val callback = mock<(Request, Throwable) -> Unit> {
+            onBlocking { invoke(any(), any()) } doReturn Unit
         }
 
         val executor = mock.onFailure(callback)
@@ -30,8 +30,8 @@ internal class OnFailureDecoratorTest : ShouldSpec({
             onBlocking { get(any()) } doThrow RuntimeException(message)
         }
 
-        val callback = mock<(Throwable) -> Unit> {
-            onBlocking { invoke(any()) } doReturn Unit
+        val callback = mock<(Request, Throwable) -> Unit> {
+            onBlocking { invoke(any(), any()) } doReturn Unit
         }
 
         val executor = mock.onFailure(callback)
@@ -39,7 +39,7 @@ internal class OnFailureDecoratorTest : ShouldSpec({
         val error = shouldThrow<RuntimeException> { executor.get(request) }
         error.message shouldBe message
 
-        verify(callback).invoke(argWhere { e -> e is RuntimeException && e.message == message })
+        verify(callback).invoke(any(), argWhere { e -> e is RuntimeException && e.message == message })
         verifyNoMoreInteractions(callback)
     }
 })
